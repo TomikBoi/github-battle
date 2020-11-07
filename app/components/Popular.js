@@ -1,59 +1,59 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from "react";
+import PropTypes from "prop-types";
 
-function LanguagesNav({ selected, onUpdateLanguage}) {
-  const languages = ['All', 'JavaScript', 'Ruby', 'Jaba', 'CSS', 'Python']
+function LanguagesNav({ selected, onUpdateLanguage }) {
+  const languages = ["All", "JavaScript", "Ruby", "Jaba", "CSS", "Python"];
 
-    return (
-      <ul className='flex-center'>
-      {languages.map((language)=> (
+  return (
+    <ul className="flex-center">
+      {languages.map((language) => (
         <li key={language}>
-          <button className='btn-clear nav-link'
-          style={language === selected ? { color: 'rgb(187, 46, 31)' } : null}
-          onClick={() => onUpdateLanguage(language)}> 
-           {language} 
+          <button
+            className="btn-clear nav-link"
+            style={language === selected ? { color: "rgb(187, 46, 31)" } : null}
+            onClick={() => onUpdateLanguage(language)}
+          >
+            {language}
           </button>
         </li>
       ))}
-      </ul>
-    )
+    </ul>
+  );
 }
 
 LanguagesNav.PropTypes = {
   selected: PropTypes.string.isRequired,
-  onUpdateLanguage: PropTypes.func.isRequired
-}
+  onUpdateLanguage: PropTypes.func.isRequired,
+};
 
 export default class Popular extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
-    this.state =  {
-      selectedLanguage: 'All'
-    }
+    this.state = {
+      selectedLanguage: "All",
+    };
     // console.log('here', this)
     // This will reference component Popular rathen than LanguagesNav
-    this.updateLanguage = this.updateLanguage.bind(this)
+    this.updateLanguage = this.updateLanguage.bind(this);
   }
 
-  updateLanguage (selectedLanguage) {
+  updateLanguage(selectedLanguage) {
     this.setState({
-      selectedLanguage
-    })
+      selectedLanguage,
+    });
   }
-
 
   render() {
-    const { selectedLanguage } = this.state
+    const { selectedLanguage } = this.state;
 
-
-  return (
-    <React.Fragment>
-      <LanguagesNav
-        selected={selectedLanguage}
-        onUpdateLanguage={this.updateLanguage}
+    return (
+      <React.Fragment>
+        <LanguagesNav
+          selected={selectedLanguage}
+          onUpdateLanguage={this.updateLanguage}
         />
-    </React.Fragment>
-  )  
-}
+      </React.Fragment>
+    );
+  }
 }
