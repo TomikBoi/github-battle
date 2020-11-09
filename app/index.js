@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom' //Allows render element to DOM
 import Popular from './components/Popular'
 import './index.css'
+import Battle from './components/Battle'
 
 //Component
 //-State
@@ -25,7 +26,7 @@ export default class App extends React.Component {
 
     return (
       <div className='container'>
-        <Popular />
+        <Battle />
       </div>
     )
 

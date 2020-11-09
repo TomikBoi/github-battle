@@ -9,7 +9,7 @@ import {
 } from "react-icons/fa";
 
 function LanguagesNav({ selected, onUpdateLanguage }) {
-  const languages = ["All", "JavaScript", "Ruby", "Jaba", "CSS", "Python"];
+  const languages = ["All", "JavaScript", "Ruby", "Java", "CSS", "Python"];
 
   return (
     <ul className="flex-center">
