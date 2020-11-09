@@ -1,5 +1,10 @@
 import React from "react";
-import { FaUserFriends, FaFighterJet, FaTrophy } from "react-icons/fa";
+import {
+  FaUserFriends,
+  FaFighterJet,
+  FaTrophy,
+  FaTimesCircle,
+} from "react-icons/fa";
 import PropTypes from "prop-types";
 
 function Instructions() {
@@ -70,7 +75,7 @@ class PlayerInput extends React.Component {
               className="input-light"
               placeholder="github username"
               autoComplete="off"
-              value={this.state.username} //If we want to update the value, we have to update the state, func below 
+              value={this.state.username} //If we want to update the value, we have to update the state, func below
               onChange={this.handleChange}
             />
             <button
@@ -92,49 +97,97 @@ PlayerInput.propTypes = {
   label: PropTypes.string.isRequired,
 };
 
+function PlayerPreview({ username, onReset, label }) {
+  return (
+    <div className="column player">
+      <h3 className="player-label">{label}</h3>
+      <div className="row bg-light">
+        <div className="player-info">
+          <img
+            className="avatar-small"
+            src={`https://github.com/${username}.png?size=200`}
+            alt={`Avatar for ${username}`}
+          />
+          <a href={`https://github.com/${username}`} className="link">
+            {username}
+          </a>
+        </div>
+        <button className="btn-clear flex-center" onClick={onReset}>
+          <FaTimesCircle color="rgb(194,57,42)" size={26} />
+        </button>
+      </div>
+    </div>
+  );
+}
+
+PlayerPreview.propTypes = {
+  username: PropTypes.string.isRequired,
+  onReset: PropTypes.func.isRequired,
+  label: PropTypes.string.isRequired,
+};
+
 export default class Battle extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       playerOne: null,
       playerTwo: null,
-    }
+    };
 
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleReset = this.handleReset.bind(this)
   }
 
   handleSubmit(id, player) {
     this.setState({
-      [id]: player
+      [id]: player,
+    });
+  }
+
+  handleReset(id) {
+    this.setState({
+      [id]: null
     })
   }
 
   render() {
-    const { playerOne, playerTwo } = this.state
+    const { playerOne, playerTwo } = this.state;
 
     return (
       <React.Fragment>
         <Instructions />
-        
-      <div className='player-container'>
-        <h1 className='center-text header-lg'>Players</h1>
-          <div className='row space-around'>
-            {playerOne === null && (
+
+        <div className="player-container">
+          <h1 className="center-text header-lg">Players</h1>
+          <div className="row space-around">
+            {playerOne === null ? (
               <PlayerInput
-              label='Player One'
-              onSubmit={(player) => this.handleSubmit('playerOne', player)}
+                label="Player One"
+                onSubmit={(player) => this.handleSubmit("playerOne", player)}
+              />
+            ) : (
+              <PlayerPreview
+                username={playerOne}
+                label="Player One"
+                onReset={() => this.handleReset('playerOne')}
               />
             )}
 
-            {playerTwo === null && (
+            {playerTwo === null ? (
               <PlayerInput
-              label='Player Two'
-              onSubmit={(player) => this.handleSubmit('playerTwo', player)}
+                label="Player Two"
+                onSubmit={(player) => this.handleSubmit("playerTwo", player)}
+              />
+            ) : (
+              <PlayerPreview
+                username={playerTwo}
+                label="Player Two"
+                onReset={() => this.handleReset('playerTwo')}
               />
             )}
           </div>
-      </div>
+        </div>
       </React.Fragment>
     );
   }
